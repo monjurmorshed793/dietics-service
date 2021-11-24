@@ -1,7 +1,7 @@
 # This configuration is intended for development purpose, it's **your** responsibility to harden it for production
 version: '3.8'
 services:
-  dietics-mysql:
+  mysql:
     image: mysql:8.0.27
     volumes:
       - ~/volumes/dietics-application/dietics-service/mysql/:/var/lib/mysql/
@@ -27,12 +27,13 @@ services:
         '-Djboss.socket.binding.port-offset=1000',
         '-Dkeycloak.profile.feature.upload_scripts=enabled',
       ]
-    volumes:
-      - ./realm-config:/opt/jboss/keycloak/realm-config
+#    volumes:
+#      - ./realm-config:/opt/jboss/keycloak/realm-config
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
       - DB_VENDOR=mysql
+      - DB_ADDR=mysql
       - DB_DATABASE=dietics
       - DB_USER=root
       - DB_PASSWORD=dietics
